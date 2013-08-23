@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Web", "Tasks.Web\TodoList.Web.csproj", "{6CD20F82-8BA0-4EBD-8551-DB5C21E6709F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoList.Web", "TodoList.Web\TodoList.Web.csproj", "{6CD20F82-8BA0-4EBD-8551-DB5C21E6709F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
