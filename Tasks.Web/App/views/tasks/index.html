@@ -1,0 +1,76 @@
+﻿<div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">
+                <span class="glyphicon glyphicon-list-alt"></span>
+                Personal Tasks
+            </a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="navbar-text">
+                    <span class="glyphicon glyphicon-user"></span>
+                    Username
+                </li>
+                <li><a href="./">Log out</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="well form-inline">
+            <input class="form-control" placeholder="What needs to be done?" type="text" />
+            <input class="form-control" placeholder="Set Date" type="text" />
+            <input class="form-control" placeholder="Choose a priority" type="text" />
+            <button class="btn"><span class="text-muted">Add Task</span></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-inline">
+            <label>
+                <input type="checkbox">
+                Mark all as completed
+            </label>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Sort By: <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Due Date</a></li>
+                    <li><a href="#">Priority</a></li>
+                </ul>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    Ascending <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Ascending</a></li>
+                    <li><a href="#">Descending</a></li>
+                </ul>
+            </div>
+            <div class="btn-group pull-right">
+                3 Tasks Remaining  
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" />
+                    </td>
+                    <td>This is a task</td>
+                    <td>
+                        <span class="label label-default">21.08.2013</span>
+                        <span class="label label-danger">High</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
