@@ -2,7 +2,8 @@
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
-using System.Web.Mvc;
+using System.Web.Http.Controllers;
+using System.Web.Http.Filters;
 using TodoList.Web.Models;
 using WebMatrix.WebData;
 
@@ -14,7 +15,7 @@ namespace TodoList.Web.Filters
         private static object _initializerLock = new object();
         private static bool _isInitialized;
 
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public override void OnActionExecuting(HttpActionContext filterContext)
         {
             // Ensure ASP.NET Simple Membership is initialized only once per app start
             LazyInitializer.EnsureInitialized(ref _initializer, ref _isInitialized, ref _initializerLock);

@@ -1,13 +1,21 @@
-﻿TasksApp.Controllers.controller('account.login', ['$scope', 'service.auth', function ($scope, serviceAuth) {
+﻿TasksApp.Controllers.controller('account.login', ['$scope', '$location', 'service.auth', function ($scope, $location, serviceAuth) {
 
-    $scope.signIn = function () {
+    $scope.login = function () {
         serviceAuth.login({
             username: $scope.username,
             password: $scope.password,
             rememberMe: $scope.rememberMe
-        }, function (user) {
-            toastr.success('Stuff is done');
+        }, function () {
+            toastr.success('Logged in successfully.');
+
+            $location.path('/');
         });
-    }
+    };
+
+    $scope.isValid = function () {
+        if (!$scope.username || !$scope.password) return false;
+
+        return true;
+    };
 
 }]);

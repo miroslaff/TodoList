@@ -1,5 +1,7 @@
-﻿using Newtonsoft.Json.Serialization;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Web.Http;
+using TodoList.Web.Security;
 
 namespace TodoList.Web
 {
@@ -10,7 +12,11 @@ namespace TodoList.Web
             // 
             // Json.Net settings (we are overriding the defaults in order to support camel casing on the client side)
 
-            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            var settings = config.Formatters.JsonFormatter.SerializerSettings;
+            settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+            //config.MessageHandlers.Add(new BasicAuthenticationHandler());
 
             //
             // Routes

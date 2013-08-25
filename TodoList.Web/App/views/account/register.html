@@ -1,10 +1,20 @@
-﻿<form class="form-signin">
-    <h2 class="form-signin-heading">Please sign in</h2>
-    <input type="text" class="form-control" placeholder="Email address" autofocus>
-    <input type="password" class="form-control" placeholder="Password">
-    <label class="checkbox">
-        <input type="checkbox" value="remember-me">
-        Remember me
-    </label>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-</form>
+﻿<div class="container form-signin">
+    <form data-ng-submit="register()">
+        <h3>Welcome to My Todo List</h3>
+        <hr />
+        <h3>Registration Form</h3>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Email address" data-ng-model="username" autofocus />
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" data-ng-model="password" />
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirm Password" data-ng-model="confirmPassword">
+        </div>
+        <button data-ng-disabled="!isValid()" class="btn btn-lg btn-primary btn-block">Register</button>
+    </form>
+    <p>
+        <a href="#/account/login">Back to login</a>
+    </p>
+</div>

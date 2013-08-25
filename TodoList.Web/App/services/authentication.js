@@ -1,48 +1,43 @@
-﻿TasksApp.Services.factory('service.auth', function ($http, $cookieStore) {
-    //var currentUser = $cookieStore.get('user') || { username: '', role: userRoles.public };
+﻿TasksApp.Services.factory('service.auth', ['$config', '$http', '$cookieStore', 'service.base64', function ($config, $http, $cookieStore, base64) {
+    // initialize to whatever is in the cookie, if anything
+    //$http.defaults.headers.common['Authorization'] = 'Basic ' + ($cookieStore.get('authdata') || '');
 
-    $cookieStore.remove('user');
-
-    function changeUser(user) {
-        _.extend(currentUser, user);
-    };
+    var currentUser;
 
     return {
-        authorize: function (accessLevel, role) {
-            if (role === undefined)
-                role = currentUser.role;
+        getCurrentUser: function () {
+            return currentUser;
+        },
 
-            return accessLevel.bitMask & role.bitMask;
+        isLoggedIn: function () {
+            return $cookieStore.get('authdata') !== undefined;
         },
-        isLoggedIn: function (user) {
-            return false;
-            /*if (user === undefined)
-                user = currentUser;
-            return user.role.title == userRoles.user.title || user.role.title == userRoles.admin.title;*/
-        },
-        register: function (user, success, error) {
-            $http.post('/register', user).success(function (res) {
-                changeUser(res);
-                success();
-            }).error(error);
-        },
-        login: function (user, success) {
-            $http.post('Account/Login', { model: user }).success(function (user) {
-                changeUser(user);
-                success(user);
+
+        register: function (user, callback) {
+            $http.put($config.serviceRoot + 'account/register', user).success(function (res) {
+                callback();
             });
         },
-        logout: function (success, error) {
-            $http.post('/logout').success(function () {
-                changeUser({
-                    username: '',
-                    role: userRoles.public
-                });
-                success();
-            }).error(error);
-        }/*,
-        accessLevels: accessLevels,
-        userRoles: userRoles,
-        user: currentUser*/
+
+        login: function (user, callback) {
+            $http.post($config.serviceRoot + 'account/login', user).success(function () {
+                /*var encoded = base64.encode(user.username + ':' + user.password);
+                $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
+                $cookieStore.put('authdata', encoded);*/
+                currentUser = user.username;
+
+                callback();
+            });
+        },
+
+        logout: function (callback) {
+            $http.get($config.serviceRoot + 'account/logout').success(function () {
+                /*document.execCommand("ClearAuthenticationCache");
+                $cookieStore.remove('authdata');
+                $http.defaults.headers.common.Authorization = 'Basic ';*/
+
+                callback();
+            });
+        }
     };
-});
+}]);

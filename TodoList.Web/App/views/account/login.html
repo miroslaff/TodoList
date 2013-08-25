@@ -1,12 +1,21 @@
-﻿<div class="container">
-    <div class="form-signin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <input type="text" class="form-control" placeholder="Email address" data-ng-model="username" autofocus>
-        <input type="password" class="form-control" placeholder="Password" data-ng-model="password">
+﻿<div class="container form-signin">
+    <form data-ng-submit="login()">
+        <h3>Welcome to My Todo List</h3>
+        <hr />
+        <h3>Please sign in</h3>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Email address" data-ng-model="username" autofocus>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" data-ng-model="password">
+        </div>
         <label class="checkbox">
             <input type="checkbox" data-ng-model="rememberMe">
             Remember me
         </label>
-        <button class="btn btn-lg btn-primary btn-block" data-ng-click="signIn()">Sign in</button>
-    </div>
+        <button data-ng-disabled="!isValid()" class="btn btn-lg btn-primary btn-block">Login</button>
+    </form>
+    <p>
+        New user? <a href="#/account/register">Click here to register</a>
+    </p>
 </div>

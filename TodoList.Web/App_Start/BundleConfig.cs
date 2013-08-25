@@ -19,6 +19,9 @@ namespace TodoList.Web
                     .Include("~/App/libs/angular/angular-resource.js")
                     .Include("~/App/libs/angular/angular-cookies.js")
 
+                    .Include("~/App/libs/ui-bootstrap/ui-bootstrap-custom-0.5.0.js")
+                    .Include("~/App/libs/ui-bootstrap/ui-bootstrap-custom-tpls-0.5.0.js")
+
                     .IncludeDirectory("~/App/libs/utils", "*.js")
 
                     .Include("~/App/app.js")
@@ -34,6 +37,7 @@ namespace TodoList.Web
                 new ScriptBundle("~/Content/style")
                     .Include("~/Content/css/bootstrap.css")
                     .Include("~/Content/css/toastr.css")
+                    .Include("~/Content/css/site.css")
             );
         }
 
@@ -41,7 +45,7 @@ namespace TodoList.Web
         {
             if (ignoreList == null)
             {
-                throw new ArgumentNullException("ignoreList argument is null");
+                throw new ArgumentNullException("ignoreList");
             }
 
             ignoreList.Ignore("*.intellisense.js");

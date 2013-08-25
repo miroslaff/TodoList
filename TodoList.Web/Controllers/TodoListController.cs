@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using TodoList.Web.Models;
 
@@ -19,14 +18,14 @@ namespace TodoList.Web.Controllers
         // GET api/TodoList
         public IEnumerable<TodoItem> GetTodoItems()
         {
-            var todoitems = db.TodoItems.Include(t => t.User);
-            return todoitems.AsEnumerable();
+            return db.TodoItems.Where(x => x.User.Username == HttpContext.Current.User.Identity.Name).AsEnumerable();
         }
 
         // GET api/TodoList/5
         public TodoItem GetTodoItem(int id)
         {
-            TodoItem todoitem = db.TodoItems.Find(id);
+            var todoitem = db.TodoItems.SingleOrDefault(x => x.Id == id &&
+                                                             x.User.Username == HttpContext.Current.User.Identity.Name);
             if (todoitem == null)
             {
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
@@ -35,17 +34,12 @@ namespace TodoList.Web.Controllers
             return todoitem;
         }
 
-        // PUT api/TodoList/5
-        public HttpResponseMessage PutTodoItem(int id, TodoItem todoitem)
+        // PUT api/TodoList/
+        public HttpResponseMessage PutTodoItem(TodoItem todoitem)
         {
             if (!ModelState.IsValid)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
-
-            if (id != todoitem.Id)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest);
             }
 
             db.Entry(todoitem).State = EntityState.Modified;
@@ -67,23 +61,24 @@ namespace TodoList.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = db.Users.Single(x => x.Username == HttpContext.Current.User.Identity.Name);
+
+                todoitem.UserId = user.Id;
+
                 db.TodoItems.Add(todoitem);
                 db.SaveChanges();
 
-                HttpResponseMessage response = Request.CreateResponse(HttpStatusCode.Created, todoitem);
-                response.Headers.Location = new Uri(Url.Link("DefaultApi", new { id = todoitem.Id }));
-                return response;
+                return Request.CreateResponse(HttpStatusCode.Created, todoitem);
             }
-            else
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
         }
 
         // DELETE api/TodoList/5
         public HttpResponseMessage DeleteTodoItem(int id)
         {
-            TodoItem todoitem = db.TodoItems.Find(id);
+            var todoitem = db.TodoItems.SingleOrDefault(x => x.Id == id &&
+                                                             x.User.Username == HttpContext.Current.User.Identity.Name);
             if (todoitem == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);

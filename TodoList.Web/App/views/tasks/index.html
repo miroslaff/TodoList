@@ -3,74 +3,68 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">
                 <span class="glyphicon glyphicon-list-alt"></span>
-                Personal Tasks
+                My Todo List
             </a>
         </div>
         <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="navbar-text">
-                    <span class="glyphicon glyphicon-user"></span>
-                    Username
-                </li>
-                <li><a href="./">Log out</a></li>
-            </ul>
+            <ul data-logged-in-user="" class="navbar-right"></ul>
         </div>
     </div>
 </div>
 
 <div class="container">
     <div class="row">
-        <div class="well form-inline">
-            <input class="form-control" placeholder="What needs to be done?" type="text" />
-            <input class="form-control" placeholder="Set Date" type="text" />
-            <input class="form-control" placeholder="Choose a priority" type="text" />
-            <button class="btn"><span class="text-muted">Add Task</span></button>
-        </div>
+        <form data-ng-submit="addTodo()" class="well form-inline">
+            <div class="form-group">
+                <input class="form-control" data-ng-model="newTodo.title" placeholder="What needs to be done" type="text" />
+            </div>
+            <div class="form-group">
+                <select class="form-control" data-ng-model="newTodo.priority">
+                    <option value="1">Low Priority</option>
+                    <option value="2">Normal Priority</option>
+                    <option value="3">High Priority</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input class="form-control" data-datepicker-popup="MM/dd/yyyy" data-ng-model="newTodo.dueDate" placeholder="Set Date" type="text" />
+            </div>
+            <button class="btn btn-primary" data-ng-disabled="!newTodo.title">Add Task</button>
+        </form>
     </div>
     <div class="row">
         <div class="form-inline">
-            <label>
-                <input type="checkbox">
-                Mark all as completed
-            </label>
             <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Sort By: <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Due Date</a></li>
-                    <li><a href="#">Priority</a></li>
-                </ul>
-            </div>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    Ascending <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Ascending</a></li>
-                    <li><a href="#">Descending</a></li>
-                </ul>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Sort By: <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Due Date</a></li>
+                        <li><a href="#">Priority</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i><span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#"><i class="glyphicon glyphicon-sort-by-attributes"></i> Ascending</a></li>
+                            <li><a href="#"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i> Descending</a></li>
+                        </ul>
+                    </div>
+
+                </div>
             </div>
             <div class="btn-group pull-right">
-                3 Tasks Remaining  
+                <span class="label label-success">{{count()}}</span> Tasks Remaining
             </div>
         </div>
     </div>
-
+    <hr />
     <div class="row">
-        <table class="table table-striped table-hover">
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="checkbox" />
-                    </td>
-                    <td>This is a task</td>
-                    <td>
-                        <span class="label label-default">21.08.2013</span>
-                        <span class="label label-danger">High</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <ul class="list-unstyled">
+            <li data-todo="" data-model="item" delete-fn="removeTodo(todo)" data-ng-repeat="item in list"></li>
+        </ul>
     </div>
 </div>

@@ -9,7 +9,8 @@ TasksApp.Controllers = angular.module('tasks.controllers', []);
 TasksApp.Filters = angular.module('tasks.filters', []);
 TasksApp.Directives = angular.module('tasks.directives', []);
 
-angular.module('tasks', ['ngCookies',
+angular.module('tasks', ['ui.bootstrap',
+                         'ngCookies',
                          'tasks.utils',
                          'tasks.filters',
                          'tasks.services',
@@ -21,19 +22,19 @@ angular.module('tasks', ['ngCookies',
             function ($routeProvider, $httpProvider, $config) {
                 $routeProvider
                     .when('/', {
-                        templateUrl: $config.viewsRoot + '/tasks/index.html',
+                        templateUrl: $config.viewsRoot + 'tasks/index.html',
                         controller: 'tasks.index'
                     })
-                    .when('/login', {
-                        templateUrl: $config.viewsRoot + '/account/login.html',
+                    .when('/account/login', {
+                        templateUrl: $config.viewsRoot + 'account/login.html',
                         controller: 'account.login'
                     })
-                    .when('/register', {
-                        templateUrl: $config.viewsRoot + '/employees/register.html',
+                    .when('/account/register', {
+                        templateUrl: $config.viewsRoot + 'account/register.html',
                         controller: 'account.register'
                     })
                     .otherwise({
-                        redirectTo: '/login'
+                        redirectTo: '/account/login'
                     });
 
                 $httpProvider.responseInterceptors.push(['$q', '$location', function ($q, $location) {
@@ -44,13 +45,22 @@ angular.module('tasks', ['ngCookies',
 
                             switch (response.status) {
                                 case 401:
-                                    $location.path('/login');
+                                    $location.path('/account/login');
                                     break;
                                 case 404:
                                     toastr.error('Resource was not found.');
                                     break;
                                 default:
-                                    toastr.error('There was a server error while issuing the request.');
+                                    if (response.data.errors) {
+                                        var message = '';
+                                        for (var i = 0; i < response.data.errors.length; i++) {
+                                            message += response.data.errors[i] + '<br />';
+                                        }
+
+                                        toastr.error(message);
+                                    }
+                                    else
+                                        toastr.error('There was a server error while issuing the request.');
                             }
 
                             return $q.reject(response);
@@ -61,8 +71,8 @@ angular.module('tasks', ['ngCookies',
      .run(['$rootScope', '$location', 'service.auth', function ($rootScope, $location, serviceAuth) {
          $rootScope.$on("$routeChangeStart", function (event, next, current) {
              $rootScope.error = null;
-             if (serviceAuth.isLoggedIn()) $location.path('/');
-             else $location.path('/login');
+             //if (serviceAuth.isLoggedIn()) $location.path('/');
+             //else $location.path('/login');
          });
      }]);
 
