@@ -23,15 +23,18 @@ angular.module('tasks', ['ui.bootstrap',
                 $routeProvider
                     .when('/', {
                         templateUrl: $config.viewsRoot + 'tasks/index.html',
-                        controller: 'tasks.index'
+                        controller: 'tasks.index',
+                        authorize: true
                     })
                     .when('/account/login', {
                         templateUrl: $config.viewsRoot + 'account/login.html',
-                        controller: 'account.login'
+                        controller: 'account.login',
+                        authorize: false
                     })
                     .when('/account/register', {
                         templateUrl: $config.viewsRoot + 'account/register.html',
-                        controller: 'account.register'
+                        controller: 'account.register',
+                        authorize: false
                     })
                     .otherwise({
                         redirectTo: '/account/login'
@@ -69,10 +72,9 @@ angular.module('tasks', ['ui.bootstrap',
                 }]);
             }])
      .run(['$rootScope', '$location', 'service.auth', function ($rootScope, $location, serviceAuth) {
-         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-             $rootScope.error = null;
-             //if (serviceAuth.isLoggedIn()) $location.path('/');
-             //else $location.path('/login');
+         $rootScope.$on("$routeChangeStart", function (event, next) {
+             if (next.authorize && !serviceAuth.isLoggedIn())
+                 $location.path('/account/login');
          });
      }]);
 

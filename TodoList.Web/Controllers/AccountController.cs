@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web.Security;
-using WebMatrix.WebData;
-using TodoList.Web.Filters;
-using TodoList.Web.Models;
-using System.Web.Http;
+﻿using System.Net;
 using System.Net.Http;
+using System.Web.Http;
+using System.Web.Security;
+using TodoList.Web.Filters;
+using TodoList.Web.Helpers;
+using TodoList.Web.Models;
+using WebMatrix.WebData;
 
 namespace TodoList.Web.Controllers
 {
@@ -36,7 +34,7 @@ namespace TodoList.Web.Controllers
 
             // If we got this far, something failed
             return Request.CreateResponse(HttpStatusCode.BadRequest,
-                                          new { errors = GetErrorsFromModelState() });
+                                          new { errors = ModelStateHelpers.GetErrorsFromModelState(ModelState) });
         }
 
         //
@@ -77,7 +75,7 @@ namespace TodoList.Web.Controllers
 
             // If we got this far, something failed
             return Request.CreateResponse(HttpStatusCode.BadRequest,
-                                          new { errors = GetErrorsFromModelState() });
+                                          new { errors = ModelStateHelpers.GetErrorsFromModelState(ModelState) });
         }
         /*
                 //
@@ -131,29 +129,12 @@ namespace TodoList.Web.Controllers
                     return View(model);
                 }
 
-                #region Helpers
-                private ActionResult RedirectToLocal(string returnUrl)
-                {
-                    if (Url.IsLocalUrl(returnUrl))
-                    {
-                        return Redirect(returnUrl);
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
                 */
         public enum ManageMessageId
         {
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
-        }
-
-        private IEnumerable<string> GetErrorsFromModelState()
-        {
-            return ModelState.SelectMany(x => x.Value.Errors.Select(error => error.ErrorMessage));
         }
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
@@ -193,6 +174,5 @@ namespace TodoList.Web.Controllers
                     return "An unknown error occurred. Please verify your entry and try again. If the problem persists, please contact your system administrator.";
             }
         }
-        //#endregion
     }
 }

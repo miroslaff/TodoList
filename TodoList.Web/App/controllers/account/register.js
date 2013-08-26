@@ -1,12 +1,13 @@
-﻿TasksApp.Controllers.controller('account.register', ['$scope', 'service.auth', function ($scope, serviceAuth) {
+﻿TasksApp.Controllers.controller('account.register', ['$scope', '$location', 'service.auth', function ($scope, $location, serviceAuth) {
 
     $scope.register = function () {
         serviceAuth.register({
             username: $scope.username,
             password: $scope.password,
             confirmPassword: $scope.confirmPassword,
-        }, function (user) {
-            toastr.success('Stuff is done');
+        }, function () {
+            toastr.success('Registration successfull<br />Please login');
+            $location.path('/account/login');
         });
     };
 

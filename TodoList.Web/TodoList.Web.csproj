@@ -143,6 +143,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Helpers\ModelStateHelpers.cs" />
     <Compile Include="Security\BasicAuthenticationHandler.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Priority.cs" />

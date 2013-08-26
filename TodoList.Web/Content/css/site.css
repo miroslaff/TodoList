@@ -35,6 +35,10 @@ a {
         display: none;
     }
 
+.task-count {
+    padding: 6px 10px;
+}
+
 /* Forms */
 
 .form-signin {

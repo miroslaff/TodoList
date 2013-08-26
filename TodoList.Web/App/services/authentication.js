@@ -2,7 +2,7 @@
     // initialize to whatever is in the cookie, if anything
     //$http.defaults.headers.common['Authorization'] = 'Basic ' + ($cookieStore.get('authdata') || '');
 
-    var currentUser = { isAuthenticated: false, name: '' };
+    var currentUser = { isLoggedIn: false, name: '' };
 
     return {
         getCurrentUser: function () {
@@ -10,7 +10,7 @@
         },
 
         isLoggedIn: function () {
-            return $cookieStore.get('authdata') !== undefined;
+            return currentUser.isLoggedIn;
         },
 
         register: function (user, callback) {
@@ -24,7 +24,7 @@
                 /*var encoded = base64.encode(user.username + ':' + user.password);
                 $http.defaults.headers.common.Authorization = 'Basic ' + encoded;
                 $cookieStore.put('authdata', encoded);*/
-                currentUser.isAuthenticated = true;
+                currentUser.isLoggedIn = true;
                 currentUser.name = user.username;
 
                 callback();

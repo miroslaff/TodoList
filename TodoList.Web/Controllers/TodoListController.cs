@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using TodoList.Web.Helpers;
 using TodoList.Web.Models;
 
 namespace TodoList.Web.Controllers
@@ -13,18 +14,18 @@ namespace TodoList.Web.Controllers
     [Authorize]
     public class TodoListController : ApiController
     {
-        private TodoListContext db = new TodoListContext();
+        private readonly TodoListContext _db = new TodoListContext();
 
         // GET api/TodoList
         public IEnumerable<TodoItem> GetTodoItems()
         {
-            return db.TodoItems.Where(x => x.User.Username == HttpContext.Current.User.Identity.Name).AsEnumerable();
+            return _db.TodoItems.Where(x => x.User.Username == HttpContext.Current.User.Identity.Name).AsEnumerable();
         }
 
         // GET api/TodoList/5
         public TodoItem GetTodoItem(int id)
         {
-            var todoitem = db.TodoItems.SingleOrDefault(x => x.Id == id &&
+            var todoitem = _db.TodoItems.SingleOrDefault(x => x.Id == id &&
                                                              x.User.Username == HttpContext.Current.User.Identity.Name);
             if (todoitem == null)
             {
@@ -39,14 +40,15 @@ namespace TodoList.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+                return Request.CreateResponse(HttpStatusCode.BadRequest, 
+                                              new { errors = ModelStateHelpers.GetErrorsFromModelState(ModelState) });
             }
 
-            db.Entry(todoitem).State = EntityState.Modified;
+            _db.Entry(todoitem).State = EntityState.Modified;
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -61,34 +63,35 @@ namespace TodoList.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = db.Users.Single(x => x.Username == HttpContext.Current.User.Identity.Name);
+                var user = _db.Users.Single(x => x.Username == HttpContext.Current.User.Identity.Name);
 
                 todoitem.UserId = user.Id;
 
-                db.TodoItems.Add(todoitem);
-                db.SaveChanges();
+                _db.TodoItems.Add(todoitem);
+                _db.SaveChanges();
 
                 return Request.CreateResponse(HttpStatusCode.Created, todoitem);
             }
 
-            return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            return Request.CreateResponse(HttpStatusCode.BadRequest,
+                                          new { errors = ModelStateHelpers.GetErrorsFromModelState(ModelState) });
         }
 
         // DELETE api/TodoList/5
         public HttpResponseMessage DeleteTodoItem(int id)
         {
-            var todoitem = db.TodoItems.SingleOrDefault(x => x.Id == id &&
+            var todoitem = _db.TodoItems.SingleOrDefault(x => x.Id == id &&
                                                              x.User.Username == HttpContext.Current.User.Identity.Name);
             if (todoitem == null)
             {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            db.TodoItems.Remove(todoitem);
+            _db.TodoItems.Remove(todoitem);
 
             try
             {
-                db.SaveChanges();
+                _db.SaveChanges();
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -100,7 +103,7 @@ namespace TodoList.Web.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            db.Dispose();
+            _db.Dispose();
             base.Dispose(disposing);
         }
     }

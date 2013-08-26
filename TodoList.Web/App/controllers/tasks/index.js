@@ -9,6 +9,14 @@
         toastr.success(data.length + ' Tasks Loaded');
     });
 
+    $scope.clear = function () {
+        _.each($scope.list, function (item) {
+            if (!item.isDone) return;
+
+            $scope.removeTodo(item);
+        });
+    };
+
     $scope.addTodo = function () {
         todoList.add($scope.newTodo, function (data) {
             $scope.list.push(data);
