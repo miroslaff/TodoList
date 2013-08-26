@@ -28,7 +28,6 @@ namespace TodoList.Web
                     .IncludeDirectory("~/App/services", "*.js")
                     .IncludeDirectory("~/App/controllers", "*.js", true)
                     .IncludeDirectory("~/App/directives", "*.js")
-                    .IncludeDirectory("~/App/filters", "*.js")
                     .IncludeDirectory("~/App/templates", "*.js")
             );
 

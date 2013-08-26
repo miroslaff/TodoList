@@ -484,7 +484,6 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\filters\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
