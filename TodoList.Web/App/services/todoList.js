@@ -17,7 +17,7 @@
         },
 
         remove: function (id, callback) {
-            return $http.delete($config.serviceRoot + 'todoList/' + id).success(callback);
+            return $http['delete']($config.serviceRoot + 'todoList/' + id).success(callback);
         }
 
     };

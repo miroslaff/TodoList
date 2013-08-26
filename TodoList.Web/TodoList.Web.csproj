@@ -176,14 +176,8 @@
     <Content Include="Content\css\toastr.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="App\libs\angular\angular-bootstrap-prettify.js" />
-    <Content Include="App\libs\angular\angular-bootstrap.js" />
     <Content Include="App\libs\angular\angular-cookies.js" />
     <Content Include="App\libs\angular\angular-loader.js" />
-    <Content Include="App\libs\angular\angular-mocks.js" />
-    <Content Include="App\libs\angular\angular-resource.js" />
-    <Content Include="App\libs\angular\angular-sanitize.js" />
-    <Content Include="App\libs\angular\angular-scenario.js" />
     <Content Include="App\libs\angular\angular.js" />
     <None Include="App\libs\jquery\jquery-2.0.3.intellisense.js" />
     <Content Include="App\libs\angular\i18n\angular-locale_af-na.js" />

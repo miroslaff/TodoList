@@ -16,7 +16,6 @@ namespace TodoList.Web
                     .Include("~/App/libs/bootstrap/bootstrap.js")
 
                     .Include("~/App/libs/angular/angular.js")
-                    .Include("~/App/libs/angular/angular-resource.js")
                     .Include("~/App/libs/angular/angular-cookies.js")
 
                     .Include("~/App/libs/ui-bootstrap/ui-bootstrap-custom-0.5.0.js")
@@ -34,7 +33,7 @@ namespace TodoList.Web
             );
 
             bundles.Add(
-                new ScriptBundle("~/Content/style")
+                new StyleBundle("~/Content/css/style")
                     .Include("~/Content/css/bootstrap.css")
                     .Include("~/Content/css/toastr.css")
                     .Include("~/Content/css/site.css")
