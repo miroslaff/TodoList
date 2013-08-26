@@ -6,7 +6,7 @@
     todoList.getAll(function (data) {
         $scope.list = data;
 
-        toastr.success(data.length + ' Tasks Loaded');
+        toastr.success(data.length + ' Todos Loaded');
     });
 
     $scope.clear = function () {
@@ -22,7 +22,7 @@
             $scope.list.push(data);
             $scope.newTodo = createTodo();
 
-            toastr.success('Task Added');
+            toastr.success('Todo Added');
         });
     };
 
@@ -34,7 +34,7 @@
 
             $scope.list.splice(i, 1);
 
-            toastr.success('Todo Deleted');
+            toastr.success('Todo Removed');
         });
     };
 

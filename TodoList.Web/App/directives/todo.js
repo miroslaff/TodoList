@@ -11,8 +11,8 @@
             $scope.isEditing = false;
 
             $scope.priorities = [undefined,
-                { icon: 'default', name: 'Low' },
-                { icon: 'info', name: 'Normal' },
+                { icon: 'success', name: 'Low' },
+                { icon: 'warning', name: 'Normal' },
                 { icon: 'danger', name: 'High' }];
 
             //

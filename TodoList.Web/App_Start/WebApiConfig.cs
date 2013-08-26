@@ -1,7 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Web.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System.Web.Http;
-using TodoList.Web.Security;
 
 namespace TodoList.Web
 {
@@ -15,8 +14,6 @@ namespace TodoList.Web
             var settings = config.Formatters.JsonFormatter.SerializerSettings;
             settings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-
-            //config.MessageHandlers.Add(new BasicAuthenticationHandler());
 
             //
             // Routes

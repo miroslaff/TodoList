@@ -6,12 +6,13 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using TodoList.Web.Filters;
 using TodoList.Web.Helpers;
 using TodoList.Web.Models;
 
 namespace TodoList.Web.Controllers
 {
-    [Authorize]
+    [BasicAndFormsAuthentication]
     public class TodoListController : ApiController
     {
         private readonly TodoListContext _db = new TodoListContext();
