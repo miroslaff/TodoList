@@ -36,21 +36,26 @@
             <div class="btn-group">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        Sort By: <span class="caret"></span>
+                        Sort By: {{sortLabel && sortLabel || '---'}} <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Due Date</a></li>
-                        <li><a href="#">Priority</a></li>
+                        <li><a data-ng-click="predicate='dueDate';sortLabel='Due Date'">Due Date</a></li>
+                        <li><a data-ng-click="predicate='priority';sortLabel='Priority'">Priority</a></li>
                     </ul>
                 </div>
                 <div class="btn-group">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-sort-by-attributes"></i><span class="caret"></span>
+                            <i class="glyphicon glyphicon-sort-by-attributes{{reverse && '-alt' || ''}}"></i>
+                            <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#"><i class="glyphicon glyphicon-sort-by-attributes"></i> Ascending</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-sort-by-attributes-alt"></i> Descending</a></li>
+                            <li><a data-ng-click="reverse=false">
+                                <i class="glyphicon glyphicon-sort-by-attributes"></i>Ascending
+                            </a></li>
+                            <li><a data-ng-click="reverse=true">
+                                <i class="glyphicon glyphicon-sort-by-attributes-alt"></i>Descending
+                            </a></li>
                         </ul>
                     </div>
 
@@ -64,7 +69,10 @@
     <hr />
     <div class="row">
         <ul class="list-unstyled">
-            <li data-todo="" data-model="item" delete-fn="removeTodo(todo)" data-ng-repeat="item in list"></li>
+            <li data-todo=""
+                data-model="item"
+                data-delete-fn="removeTodo(todo)"
+                data-ng-repeat="item in list | orderBy:predicate:reverse"></li>
         </ul>
     </div>
 </div>

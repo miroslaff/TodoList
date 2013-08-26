@@ -173,8 +173,8 @@
     <Content Include="App\views\tasks\index.html" />
     <Content Include="Content\css\bootstrap.css" />
     <Content Include="Content\css\site.css" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\css\toastr.css" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="App\libs\angular\angular-bootstrap-prettify.js" />
     <Content Include="App\libs\angular\angular-bootstrap.js" />
@@ -485,13 +485,12 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App\filters\" />
-    <Folder Include="App\utils\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

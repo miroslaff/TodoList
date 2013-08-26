@@ -3,7 +3,7 @@
         <input type="checkbox" data-ng-model="todo.isDone" />
         {{todo.title}}
         <span class="label label-{{priorities[todo.priority].icon}}">{{priorities[todo.priority].name}}</span>
-        <span class="label label-default" data-ng-show="todo.dueDate">{{todo.dueDate}}</span>
+        <span class="label label-default" data-ng-show="todo.dueDate">{{todo.dueDate | date:'MM/dd/yyyy'}}</span>
         <span class="edit-controls">
             <button class="btn btn-xs" data-ng-click="remove()"><span class="glyphicon glyphicon-trash"></span></button>
             <button class="btn btn-xs" data-ng-click="edit()"><span class="glyphicon glyphicon-pencil"></span></button>

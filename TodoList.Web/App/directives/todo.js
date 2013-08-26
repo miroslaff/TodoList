@@ -28,7 +28,7 @@
                 }
 
                 todoList.update($scope.todo, function () {
-                    toastr.success('Task Complete');
+                    toastr.success('Changes Saved');
                 });
             }, true);
 
@@ -41,7 +41,6 @@
                 $scope.todo.dueDate = $scope.clone.dueDate;
 
                 todoList.update($scope.todo, function () {
-                    $scope.$apply();
                     $scope.isEditing = false;
 
                     toastr.success('Changes Saved');
